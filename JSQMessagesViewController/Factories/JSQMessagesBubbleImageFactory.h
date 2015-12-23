@@ -73,4 +73,32 @@
  */
 - (JSQMessagesBubbleImage *)incomingMessagesBubbleImageWithColor:(UIColor *)color;
 
+/**
+ *  Creates and returns a `JSQMessagesBubbleImage` object with the specified gradient for *incoming* message image bubbles.
+ *  The `messageBubbleImage` property of the `JSQMessagesBubbleImage` is configured with a flat bubble image, masked to the given gradient.
+ *  The `messageBubbleHighlightedImage` property is configured similarly, but with a darkened version of the given gradient.
+ *
+ *  @param topColor The top color of the bubble image's gradient in the image view. This value must not be `nil`.
+ *
+ *  @param bottomColor The bottom color of the bubble image's gradient in the image view. This value must not be `nil`.
+ *
+ *  @return An initialized `JSQMessagesBubbleImage` object if created successfully, `nil` otherwise.
+ */
+- (JSQMessagesBubbleImage *)outgoingMessagesBubbleImageWithTopColor:(UIColor *)topColor
+                                                        bottomColor:(UIColor *)bottomColor;
+
+/**
+ *  Creates and returns a `JSQMessagesBubbleImage` object with the specified gradient for *outgoing* message image bubbles.
+ *  The `messageBubbleImage` property of the `JSQMessagesBubbleImage` is configured with a flat bubble image, masked to the given gradient.
+ *  The `messageBubbleHighlightedImage` property is configured similarly, but with a darkened version of the given gradient.
+ *
+ *  @param topColor The top color of the bubble image's gradient in the image view. This value must not be `nil`.
+ *
+ *  @param bottomColor The bottom color of the bubble image's gradient in the image view. This value must not be `nil`.
+ *
+ *  @return An initialized `JSQMessagesBubbleImage` object if created successfully, `nil` otherwise.
+ */
+- (JSQMessagesBubbleImage *)incomingMessagesBubbleImageWithTopColor:(UIColor *)topColor
+                                                        bottomColor:(UIColor *)bottomColor;
+
 @end

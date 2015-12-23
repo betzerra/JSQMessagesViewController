@@ -31,6 +31,8 @@
 
 - (JSQMessagesBubbleImage *)jsq_messagesBubbleImageWithColor:(UIColor *)color flippedForIncoming:(BOOL)flippedForIncoming;
 
+- (JSQMessagesBubbleImage *)jsq_messagesBubbleImageWithTopColor:(UIColor *)topColor bottomColor:(UIColor *)bottomColor flippedForIncoming:(BOOL)flippedForIncoming;
+
 - (UIImage *)jsq_horizontallyFlippedImageFromImage:(UIImage *)image;
 
 - (UIImage *)jsq_stretchableImageFromImage:(UIImage *)image withCapInsets:(UIEdgeInsets)capInsets;
@@ -83,6 +85,18 @@
     return [self jsq_messagesBubbleImageWithColor:color flippedForIncoming:YES];
 }
 
+- (JSQMessagesBubbleImage *)outgoingMessagesBubbleImageWithTopColor:(UIColor *)topColor
+                                                        bottomColor:(UIColor *)bottomColor
+{
+    return [self jsq_messagesBubbleImageWithTopColor:topColor bottomColor:bottomColor flippedForIncoming:NO];
+}
+
+- (JSQMessagesBubbleImage *)incomingMessagesBubbleImageWithTopColor:(UIColor *)topColor
+                                                        bottomColor:(UIColor *)bottomColor
+{
+    return [self jsq_messagesBubbleImageWithTopColor:topColor bottomColor:bottomColor flippedForIncoming:YES];
+}
+
 #pragma mark - Private
 
 - (UIEdgeInsets)jsq_centerPointEdgeInsetsForImageSize:(CGSize)bubbleImageSize
@@ -98,6 +112,26 @@
     
     UIImage *normalBubble = [self.bubbleImage jsq_imageMaskedWithColor:color];
     UIImage *highlightedBubble = [self.bubbleImage jsq_imageMaskedWithColor:[color jsq_colorByDarkeningColorWithValue:0.12f]];
+    
+    if (flippedForIncoming) {
+        normalBubble = [self jsq_horizontallyFlippedImageFromImage:normalBubble];
+        highlightedBubble = [self jsq_horizontallyFlippedImageFromImage:highlightedBubble];
+    }
+    
+    normalBubble = [self jsq_stretchableImageFromImage:normalBubble withCapInsets:self.capInsets];
+    highlightedBubble = [self jsq_stretchableImageFromImage:highlightedBubble withCapInsets:self.capInsets];
+    
+    return [[JSQMessagesBubbleImage alloc] initWithMessageBubbleImage:normalBubble highlightedImage:highlightedBubble];
+}
+
+- (JSQMessagesBubbleImage *)jsq_messagesBubbleImageWithTopColor:(UIColor *)topColor bottomColor:(UIColor *)bottomColor flippedForIncoming:(BOOL)flippedForIncoming
+{
+    NSParameterAssert(topColor != nil);
+    NSParameterAssert(bottomColor != nil);
+    
+    UIImage *normalBubble = [self.bubbleImage jsq_imageMaskedWithTopColor:topColor bottomColor:bottomColor];
+    UIImage *highlightedBubble = [self.bubbleImage jsq_imageMaskedWithTopColor:[topColor jsq_colorByDarkeningColorWithValue:0.12f]
+                                                                   bottomColor:[bottomColor jsq_colorByDarkeningColorWithValue:0.12f]];
     
     if (flippedForIncoming) {
         normalBubble = [self jsq_horizontallyFlippedImageFromImage:normalBubble];

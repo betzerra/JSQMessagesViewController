@@ -48,6 +48,44 @@
     return newImage;
 }
 
+- (UIImage *)jsq_imageMaskedWithTopColor:(UIColor *)topColor bottomColor:(UIColor *)bottomColor
+{
+    NSParameterAssert(topColor != nil);
+    NSParameterAssert(bottomColor != nil);
+    
+    CGRect imageRect = CGRectMake(0.0f, 0.0f, self.size.width, self.size.height);
+    UIImage *newImage = nil;
+    
+    UIGraphicsBeginImageContextWithOptions(imageRect.size, NO, self.scale);
+    {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        //  Create CGGradientRef
+        CFArrayRef colors = (__bridge CFArrayRef)@[(id)bottomColor.CGColor,(id)topColor.CGColor];
+        CGFloat locations[] = { 0.0, 1.0 };
+        
+        CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB();
+        CGGradientRef gradient = CGGradientCreateWithColors(baseSpace, colors, locations);
+        CGColorSpaceRelease(baseSpace);
+        
+        CGContextScaleCTM(context, 1.0f, -1.0f);
+        CGContextTranslateCTM(context, 0.0f, -(imageRect.size.height));
+        
+        CGContextClipToMask(context, imageRect, self.CGImage);
+        
+        CGPoint startPoint = CGPointMake(CGRectGetMidX(imageRect), CGRectGetMinY(imageRect));
+        CGPoint endPoint = CGPointMake(CGRectGetMidX(imageRect), CGRectGetMaxY(imageRect));
+        
+        CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
+        CGGradientRelease(gradient), gradient = NULL;
+        
+        newImage = UIGraphicsGetImageFromCurrentImageContext();
+    }
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 + (UIImage *)jsq_bubbleImageFromBundleWithName:(NSString *)name
 {
     NSBundle *bundle = [NSBundle jsq_messagesAssetBundle];

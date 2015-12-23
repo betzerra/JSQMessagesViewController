@@ -30,6 +30,17 @@
 - (UIImage *)jsq_imageMaskedWithColor:(UIColor *)maskColor;
 
 /**
+ *  Creates and returns a new image object that is masked with the gradient between topColor and bottomColor.
+ *
+ *  @param topColor The color value for the mask at the top for gradient. This value must not be `nil`.
+ *
+ *  @param bottomColor The color value for the mask at the bottom for gradient. This value must not be `nil`.
+ *
+ *  @return A new image object masked with the specified color.
+ */
+- (UIImage *)jsq_imageMaskedWithTopColor:(UIColor *)topColor bottomColor:(UIColor *)bottomColor;
+
+/**
  *  @return The regular message bubble image.
  */
 + (UIImage *)jsq_bubbleRegularImage;
