@@ -23,29 +23,18 @@ See the [website](http://www.jessesquires.com/JSQMessagesViewController/) for th
 
 ## Installation
 
-From [CocoaPods](https://cocoapods.org/):
+### [CocoaPods](https://cocoapods.org/) (recommended)
 
 ````ruby
 # For latest release in cocoapods
 pod 'JSQMessagesViewController'  
 
-# Feeling adventurous? Get the latest on develop
+# Latest on develop
 pod 'JSQMessagesViewController', :git => 'https://github.com/jessesquires/JSQMessagesViewController.git', :branch => 'develop'
 
 # For version 5.3.2
 pod 'JSQMessagesViewController', :git => 'https://github.com/jessesquires/JSQMessagesViewController', :branch => 'version_5.3.2_patch'
 ````
-
-Without CocoaPods:
-
-1. *Why aren't you using CocoaPods?*
-2. Drag the `JSQMessagesViewController/` folder to your project and install [`JSQSystemSoundPlayer`][playerLink].
-
->**NOTE:**
->
->This repo was formerly named `MessagesTableViewController`.
->
->And this pod was formerly named `JSMessagesViewController`.
 
 ## Getting Started
 
@@ -89,82 +78,14 @@ Without CocoaPods:
 * **Customizing**
   * The demo project is well-commented. Please use this as a guide.
 
-## Quick Tips
-
-##### *Springy bubbles?*
-````objective-c
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    self.collectionView.collectionViewLayout.springinessEnabled = YES;
-}
-````
-
-##### *Remove avatars?*
-````objective-c
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
-    self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
-}
-
-- (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return nil;
-}
-````
-
-##### *Customize your cells?*
-````objective-c
-- (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
-    
-    // Customize the shit out of this cell
-    // See the docs for JSQMessagesCollectionViewCell
-    
-    return cell;
-}
-````
-
-##### *Customize your toolbar buttons?*
-````objective-c
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    // This button will call the `didPressAccessoryButton:` selector on your JSQMessagesViewController subclass
-    self.inputToolbar.contentView.leftBarButtonItem = /* custom button or nil to remove */
-    
-    // This button will call the `didPressSendButton:` selector on your JSQMessagesViewController subclass
-    self.inputToolbar.contentView.rightBarButtonItem = /* custom button or nil to remove */
-    
-    // Swap buttons, move send button to the LEFT side and the attachment button to the RIGHT
-    // For RTL language support
-    self.inputToolbar.contentView.leftBarButtonItem = [JSQMessagesToolbarButtonFactory defaultSendButtonItem];
-    self.inputToolbar.contentView.rightBarButtonItem = [JSQMessagesToolbarButtonFactory defaultAccessoryButtonItem];
-    
-    // The library will call the correct selector for each button, based on this value
-    self.inputToolbar.sendButtonOnRight = NO;
-}
-````
-
 ## Questions & Help
 
-There's [a label](https://github.com/jessesquires/JSQMessagesViewController/labels/questions%20&%20help) for that. Before asking a question, see if it has [already been answered](https://github.com/jessesquires/JSQMessagesViewController/issues?q=label%3A%22questions+%26+help%22+is%3Aclosed). There's also a tag on [StackOverflow](http://stackoverflow.com/questions/tagged/jsqmessagesviewcontroller), which is often the more appropriate place for questions and help. **Please only ask questions that are _specific_ to this library.**
-
->**NOTE:** Please try to avoid emailing me with questions. I prefer to keep questions and their answers open-source.
-
-## Migrating between major versions
-
-##### From 5.x to 6.x
-
-See the [6.0 release notes](https://github.com/jessesquires/JSQMessagesViewController/releases/tag/6.0.0) for details about API changes.
-
-##### From 6.x to 7.x
-
-See the [7.0 release notes](https://github.com/jessesquires/JSQMessagesViewController/releases/tag/7.0.0) for details about API changes.
+* Review the [FAQ](https://github.com/jessesquires/JSQMessagesViewController/blob/develop/FAQ.md).
+* Search issues for previous and current [questions](https://github.com/jessesquires/JSQMessagesViewController/issues?utf8=✓&q=label%3A%22questions+%26+help%22+). *Do not open duplicates.*
+* See the [StackOverflow tag](http://stackoverflow.com/questions/tagged/jsqmessagesviewcontroller), which is often the appropriate place for questions and help.
+* See the [Migration Guide](https://github.com/jessesquires/JSQMessagesViewController/blob/develop/MIGRATION.md) for migrating between major versions of the library.
+* **Only ask questions that are _specific_ to this library.**
+* **Please avoid emailing questions.** I prefer to keep questions and their answers open-source.
 
 ## Documentation
 
@@ -207,41 +128,7 @@ Feel free to read [my blog](http://bit.ly/jsqsf) and check out my work at [Hexed
 
 ## Apps using this library
 
-* [Hemoglobe](http://bit.ly/hemoglobeapp)
-* [PocketSuite](https://itunes.apple.com/us/app/pocketsuite/id721795146)
-* [Signal](https://github.com/WhisperSystems/Signal-iOS)
-* [ClassDojo](https://itunes.apple.com/us/app/classdojo/id552602056)
-* [Schools App](https://itunes.apple.com/us/app/schools-app/id495845755)
-* [ChatSecure](https://chatsecure.org)
-* [Bryx 911](https://itunes.apple.com/us/app/bryx-911/id813078029)
-* [Kytt](https://itunes.apple.com/de/app/kytt-neue-leute-in-der-umgebung/id848959696)
-* [Spark Social](https://itunes.apple.com/us/app/spark-social/id823785892)
-* [Spabbit](https://itunes.apple.com/us/app/spabbit/id737363908)
-* [Elodie](https://itunes.apple.com/app/elodie/id821610181)
-* [Instaply](https://itunes.apple.com/us/app/instaply/id558562920)
-* [Loopse](https://itunes.apple.com/us/app/loopse-spots-friends-sessions/id704783915)
-* [Oxwall Messenger](https://github.com/tochman/OxwallMessenger)
-* [FourChat](https://itunes.apple.com/us/app/fourchat/id650833730)
-* [vCinity](https://itunes.apple.com/us/app/vcinity-chat-without-internet/id875395391)
-* [Quick Text Message](https://itunes.apple.com/us/app/quick-text-message-fast-sms/id583729997)
-* [Libraries for developers](https://itunes.apple.com/us/app/libraries-for-developers/id653427112)
-* [Buhz|Hyve](https://itunes.apple.com/us/app/buhz-hyve/id818568956)
-* [Ringring.io](https://github.com/ringring-io/ringring-ios)
-* [gDecide](https://itunes.apple.com/ca/app/gdecide/id716801285)
-* [AwesomeChat](https://github.com/relatedcode/RealtimeChat)
-* [ParseChat](https://github.com/relatedcode/ParseChat)
-* [Jib](http://jibapp.com)
-* [Onvolo](https://itunes.apple.com/us/app/onvolo/id869332351)
-* [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao)
-* [Fluky Chat](https://itunes.apple.com/us/app/fluky-chat-secure-anonymous/id958605886)
-* [VillageUnity](https://itunes.apple.com/us/app/village-unity/id919972368)
-* [Pine](https://itunes.apple.com/us/app/pine-innovation-product-life/id946589228)
-* [NotificationChat](https://github.com/relatedcode/EncryptedChat)
-* [RealtimeChat](https://github.com/relatedcode/RealtimeChat)
-* [Bazar](https://itunes.apple.com/ru/app/bazar-talk-about-everything/id885453058)
-* [Roomie](https://itunes.apple.com/us/app/roomie-find-your-roomie/id962585201)
-* [PimpMyCall](https://itunes.apple.com/us/app/pimp-my-call/id990167537)
-* *Your app here*
+According to [CocoaPods stats](https://cocoapods.org/pods/JSQMessagesViewController), over **4,000 apps** are using `JSQMessagesViewController`. [Here are the ones](https://github.com/jessesquires/JSQMessagesViewController/blob/develop/apps_using_this_library.md) that we know about. Please submit a pull request to add your app! :smile:
 
 ## License
 
